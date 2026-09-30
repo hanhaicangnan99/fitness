@@ -223,9 +223,9 @@
 
   function mount(rootEl, ctx) {
     rootEl.addEventListener('click', function (e) {
-      var t = e.target.closest('[data-go],[data-act]');
+      // data-go（跳到别的标签页）由 app.js 全局处理，这里只管 data-act
+      var t = e.target.closest('[data-act]');
       if (!t) return;
-      if (t.dataset.go) { ctx.app.go(t.dataset.go); return; }
       var act = t.dataset.act;
       var info = ctx.info, rec = Store.get().days[ctx.date] || {};
 

@@ -168,9 +168,7 @@
     U.bindSeg(rootEl, 'ed-key', function (v) { KEY = v; ctx.refresh(); });
 
     rootEl.addEventListener('click', function (e) {
-      var go = e.target.closest('[data-go]');
-      if (go) { ctx.app.go(go.dataset.go); return; }
-
+      // data-go（返回 / 跳标签页）由 app.js 全局处理，这里只管自己的 data-act / data-edmore
       var more = e.target.closest('[data-edmore]');
       if (more) { openMenu(ctx, +more.dataset.edmore); return; }
 

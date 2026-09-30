@@ -161,6 +161,17 @@
       if (root.__deferredInstall) root.__deferredInstall.prompt();
     });
 
+    // 任何视图里的「跳到某个标签页」按钮都由这里统一处理。
+    // 以前是每个视图各写一遍，结果 view.workout / view.settings 漏了 ——
+    // 按钮渲染出来了但点了没反应。挂到 document 上，以后不会再漏。
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-go]');
+      if (!t) return;
+      var id = t.dataset.go;
+      if (VIEWS.indexOf(id) < 0) return;
+      App.go(id);
+    });
+
     window.addEventListener('hashchange', function () {
       var h = (location.hash || '').replace(/^#\/?/, '');
       if (VIEWS.indexOf(h) >= 0 && h !== App.view) { App.view = h; render(); }
